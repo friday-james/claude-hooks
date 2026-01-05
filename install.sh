@@ -28,8 +28,8 @@ if jq -e '.hooks.Stop[]?.hooks[]? | select(.command | contains("telegram-notify"
   echo "✓ Hook already configured in settings.json"
 else
   echo "⚙️  Adding hook to Claude Code settings..."
-  # Add the Stop hook configuration
-  jq '.hooks.Stop = [{"hooks": [{"type": "command", "command": "$HOME/.claude/hooks/telegram-notify.sh", "timeout": 10}]}]' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp"
+  # Append to existing Stop hooks (don't overwrite)
+  jq '.hooks.Stop = (.hooks.Stop // []) + [{"hooks": [{"type": "command", "command": "$HOME/.claude/hooks/telegram-notify.sh", "timeout": 10}]}]' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp"
   mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
   echo "✓ Hook configured in $SETTINGS_FILE"
 fi
