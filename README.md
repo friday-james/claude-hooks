@@ -1,6 +1,39 @@
 # Claude Code Tools
 
-Telegram notification hook for Claude Code task completion.
+Telegram notification hook for Claude Code task completion - get notified with Claude's full response when tasks finish!
+
+## Example Notification
+
+When Claude finishes a task, you'll receive a message like this:
+
+```
+✅ Claude Code Task Completed
+
+📁 Session: my-awesome-project
+🔖 ID: 4ea4998d
+⏰ Time: 2026-01-05 12:15:30
+
+💬 Response:
+Perfect! I've updated the script to read from the transcript JSONL file to get the full response and proper session name.
+
+The script now:
+1. Reads the transcript_path from the Stop hook
+2. Extracts the project/session name from the path
+3. Gets Claude's full response from the last line of the JSONL file
+4. Sends up to 3500 characters (to stay within Telegram's 4096 char limit)
+5. Prevents infinite loops with stop_hook_active check
+
+You should now receive much more detailed notifications with the actual response content!
+```
+
+## Features
+
+- 📱 Full Claude response sent to Telegram (up to 3500 chars)
+- 📁 Session/project name extraction
+- 🔖 Session ID for reference
+- ⏰ Timestamp of completion
+- 🔒 Secure credential storage via environment variables
+- 🔁 Infinite loop prevention
 
 ## Setup
 
