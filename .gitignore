@@ -1,0 +1,4 @@
+# Ignore files with sensitive credentials
+*.env
+.env.*
+credentials.json
