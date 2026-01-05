@@ -36,6 +36,7 @@ You should now receive much more detailed notifications with the actual response
 - 🔁 Infinite loop prevention
 
 ## Setup
+Clone the repo and ask Claude Code to help you set it up. Or:
 
 1. Copy the hook script to your Claude hooks directory:
    ```bash
