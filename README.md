@@ -35,27 +35,39 @@ You should now receive much more detailed notifications with the actual response
 - 🔒 Secure credential storage via environment variables
 - 🔁 Infinite loop prevention
 
+## Quick Install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/friday-james/claude-hooks/master/install.sh | bash
+```
+
+This installs the hook and configures Claude Code automatically. Run the same command to update.
+
 ## Setup
-Clone the repo and ask Claude Code to help you set it up. Or:
 
-1. Copy the hook script to your Claude hooks directory:
-   ```bash
-   cp telegram-notify.sh ~/.claude/hooks/
-   chmod +x ~/.claude/hooks/telegram-notify.sh
-   ```
-
-2. Add your Telegram credentials as environment variables to your shell profile (`~/.bashrc` or `~/.zshrc`):
+1. Set your Telegram credentials as environment variables in `~/.bashrc` or `~/.zshrc`:
    ```bash
    export TELEGRAM_BOT_TOKEN="your_bot_token_here"
    export TELEGRAM_CHAT_ID="your_chat_id_here"
    ```
 
-   Then reload your shell:
+2. Reload your shell:
    ```bash
    source ~/.bashrc  # or source ~/.zshrc
    ```
 
-3. Add the hook configuration to `~/.claude/settings.json`:
+### Manual Install
+
+If you prefer manual installation:
+
+1. Copy the hook script:
+   ```bash
+   mkdir -p ~/.claude/hooks
+   cp telegram-notify.sh ~/.claude/hooks/
+   chmod +x ~/.claude/hooks/telegram-notify.sh
+   ```
+
+2. Add to `~/.claude/settings.json`:
    ```json
    {
      "hooks": {
@@ -64,7 +76,7 @@ Clone the repo and ask Claude Code to help you set it up. Or:
            "hooks": [
              {
                "type": "command",
-               "command": "/home/james/.claude/hooks/telegram-notify.sh",
+               "command": "$HOME/.claude/hooks/telegram-notify.sh",
                "timeout": 10
              }
            ]
