@@ -1,8 +1,14 @@
 #!/bin/bash
 
-# Your Telegram credentials - REPLACE THESE
-TELEGRAM_BOT_TOKEN="YOUR_BOT_TOKEN_HERE"
-TELEGRAM_CHAT_ID="YOUR_CHAT_ID_HERE"
+# Telegram credentials - reads from environment variables
+# Set these in your ~/.bashrc or ~/.zshrc:
+#   export TELEGRAM_BOT_TOKEN="your_token"
+#   export TELEGRAM_CHAT_ID="your_chat_id"
+
+if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
+  echo "Error: TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set as environment variables" >&2
+  exit 1
+fi
 
 # Read hook input from stdin
 hook_input=$(cat)

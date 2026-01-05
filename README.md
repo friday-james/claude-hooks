@@ -10,10 +10,16 @@ Telegram notification hook for Claude Code task completion.
    chmod +x ~/.claude/hooks/telegram-notify.sh
    ```
 
-2. Add your Telegram credentials to the script:
-   - Edit `~/.claude/hooks/telegram-notify.sh`
-   - Replace `YOUR_BOT_TOKEN_HERE` with your bot token
-   - Replace `YOUR_CHAT_ID_HERE` with your chat ID
+2. Add your Telegram credentials as environment variables to your shell profile (`~/.bashrc` or `~/.zshrc`):
+   ```bash
+   export TELEGRAM_BOT_TOKEN="your_bot_token_here"
+   export TELEGRAM_CHAT_ID="your_chat_id_here"
+   ```
+
+   Then reload your shell:
+   ```bash
+   source ~/.bashrc  # or source ~/.zshrc
+   ```
 
 3. Add the hook configuration to `~/.claude/settings.json`:
    ```json
