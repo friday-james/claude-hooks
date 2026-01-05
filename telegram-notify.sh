@@ -32,25 +32,14 @@ if [ -n "$transcript_path" ] && [ -f "$transcript_path" ]; then
   # Extract project name from path (the parent directory name)
   session_name=$(basename "$(dirname "$transcript_path")")
 
-  # Get Claude's last response from the transcript
-  # Read last line, extract content from assistant message
-  last_line=$(tail -1 "$transcript_path")
+  # Get Claude's last text response from the transcript
+  # Read all assistant messages and extract the last one with text content
+  claude_response=$(jq -rs '
+    [.[] | select(.type == "assistant") | .message.content[]? | select(.type == "text") | .text]
+    | last // empty
+  ' "$transcript_path" 2>/dev/null | tr -d '\000')
 
-  # Check if it's an assistant message
-  role=$(echo "$last_line" | jq -r '.role // ""')
-
-  if [ "$role" = "assistant" ]; then
-    # Extract content - could be array of content blocks or simple text
-    claude_response=$(echo "$last_line" | jq -r '
-      if .content | type == "array" then
-        .content[] | select(.type == "text") | .text
-      elif .content | type == "string" then
-        .content
-      else
-        "No response"
-      end
-    ' | tr -d '\000')
-  else
+  if [ -z "$claude_response" ]; then
     claude_response="Task completed (no text response)"
   fi
 else
